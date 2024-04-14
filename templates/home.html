@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Interface</title>
+</head>
+<body>
+    <h1>Hello, <span id="username">User</span>!</h1>
+    <form action="/home" method="POST">
+        <label for="figma_file_url">Enter Link to Deployed Project:</label>
+        <input type="text" id="figma_file_url" name="figma_file_url" placeholder="Enter link to deployed project" required>
+        <button type="submit">SUBMIT</button>
+    </form>
+    
+    <br><br>
+
+    <label for="pagesDropdown">Select a Screen:</label>
+    <select id="pagesDropdown" name="pagesDropdown">
+        <option disabled selected value>-- select a page --</option>
+        {% for page in page_frames %}
+        <option value="{{ page }}">{{ page }}</option>
+        {% endfor %}
+        <!-- Screens will be populated dynamically from JavaScript -->
+    </select>
+
+    <br><br>
+
+    <label for="framesDropdown">Select a Frame:</label>
+    <select id="framesDropdown" name="framesDropdown">
+        <option>Please select a page first</option>
+        <!-- Screens will be populated dynamically from JavaScript -->
+    </select>
+
+    <br><br>
+
+    <button id="checkDifferencesBtn">Check Differences</button>
+
+    <!-- jquery script import -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+
+    <script>
+        document.getElementById('pagesDropdown').onchange = function() {
+            var selectedPage = document.getElementById("pagesDropdown").value;
+
+            // make request to backend for page specific frames
+            $.ajax({
+                url: "/api/" + selectedPage + "/"
+            }).done(function(response) {
+                var framesDropdown = document.getElementById("framesDropdown");
+                framesDropdown.innerHTML = ""; // Clear existing options
+                
+                if (response.length > 0) {
+                    // add a placeholder option
+                    var firstOption = document.createElement("option");
+                    firstOption.text = "-- select a frame --";
+                    firstOption.disabled = true;
+                    firstOption.selected = true;
+                    framesDropdown.add(firstOption);
+
+                    // add options for each screen name
+                    response.forEach(function(frame) {
+                        var option = document.createElement("option");
+                        option.text = frame;
+                        option.value = frame;
+                        framesDropdown.add(option);
+                    });
+                } else {
+                    // Show "Please select a page first" message
+                    var option = document.createElement("option");
+                    option.text = "Please select a page first";
+                    framesDropdown.add(option);
+                }
+            });
+            
+        }
+
+        // dummy event handler for now, but action for "check differences" button
+        // make request to backend for screenshots?
+        document.getElementById("checkDifferencesBtn").addEventListener("click", function() {
+            var selectedPage = document.getElementById("pagesDropdown").value;
+            var selectedFrame = document.getElementById("framesDropdown").value;
+
+            $.ajax({
+                url: "/api/" + selectedPage + "/" + selectedFrame
+            }).done(function(response) {
+                console.log("RESPONSE");
+                console.log(response);
+            });
+        });
+    </script>
+</body>
+</html>
