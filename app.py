@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 
 import save_local_img as sli
+import scrape_url as su
 
 # Load environment variables from .env file
 load_dotenv()
@@ -64,11 +65,9 @@ def fetch_frames(figma_file_url, access_token):
                 # Iterate over the children of the canvas (i.e. each paage)
                 for child in canvas['children']:
                     if child['type'] == 'FRAME':
-                        # append a tuple of in form (frame_name, frame_id)
-                        frames.append((child['name'], child['id']))
-                        print("WIDTH: " + str(child['absoluteBoundingBox']['width']))
-                        print("HEIGHT: " + str(child['absoluteBoundingBox']['height']))
-
+                        frame_dimensions = (child['absoluteBoundingBox']['width'], child['absoluteBoundingBox']['height'])
+                        # append a tuple of in form (frame_name, frame_id, (width, height))
+                        frames.append((child['name'], child['id'], frame_dimensions))
 
                 # Add tuples to the dictionary with page name as key
                 page_frames[page_name] = frames
@@ -149,10 +148,15 @@ def oauth_callback():
 def home():
     if request.method == 'POST':
         figma_file_url = request.form['figma_file_url']
-        page_frames = fetch_frames(figma_file_url, session.get('access_token'))
-        session['page_frames'] = page_frames
+        deployed_project_url = request.form['deployed_url']
 
-        return render_template('home.html', page_frames=page_frames)
+        page_frames = fetch_frames(figma_file_url, session.get('access_token'))
+        deployed_project_pages = su.get_pages_from_url(deployed_project_url)
+
+        session['page_frames'] = page_frames
+        # session['deployed_project_pages'] = deployed_project_pages
+
+        return render_template('home.html', page_frames=page_frames, deployed_project_pages=deployed_project_pages)
     
     return render_template('home.html')
 
@@ -167,21 +171,28 @@ def api_get_page_frames(page):
     return page_frames_filtered
 
 
-@app.route('/api/<page>/<frame>/')
-def api_get_image_link(page, frame):
+@app.route('/api/compare/')
+def api_get_image_link():
+    page = request.args.get('selectedPage')
+    frame = request.args.get('selectedFrame')
+    deployedPage = request.args.get('selectedDeployedPage')
     page_frames = session['page_frames']
     node_id = -1
+    frame_width = -1
+    frame_height = -1
     for f in page_frames.get(page):
         if f[0] == frame:
             node_id = f[1]
+            frame_width = f[2][0]
+            frame_height = f[2][1]
+
 
     img_link1 = fetch_image_download_link(session.get('access_token'), node_id)
-    img_link2 = None
+    image2_path = su.get_screenshot_of_page(deployedPage, frame_width, frame_height)
 
-    # LEFT OFF HERE ----------------------------------
-    sli.compare_url_images(img_link1, img_link2)
+    response = sli.compare_url_images(img_link1, image2_path)
 
-    return img_link1
+    return response
 
 
 

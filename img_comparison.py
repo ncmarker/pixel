@@ -23,8 +23,8 @@ def compare_two_images(image1_path, image2_path):
     makes request to GPT4-Vision to compare the two images
     returns: response as json
     """
-    image1_path = "testing/figma_resized.png"
-    image2_path = "testing/desktop_resized.png"
+    # image1_path = "testing/figma_resized.png"
+    # image2_path = "testing/desktop_resized.png"
 
     base64_image1 = encode_image(image1_path)
     base64_image2 = encode_image(image2_path)
