@@ -48,7 +48,7 @@ def url_to_path(image_url):
     return None
 
 
-def compare_url_images(url1, url2):
+def compare_url_images(url1, image2_path):
     """
     compares two URL images (input) by calling imported chatgpi api function
     uses helpers download_image and url_to_path for url to img path conversion
@@ -56,7 +56,6 @@ def compare_url_images(url1, url2):
     returns: the chatgpt api response on image comparison
     """
     image1_path = url_to_path(url1)
-    image2_path = url_to_path(url2)   #  or just the path name if we get path from selenium
 
     comparison_response_json = img_comparison.compare_two_images(image1_path, image2_path)
 
@@ -67,24 +66,3 @@ def compare_url_images(url1, url2):
     print("Temporary image2 file deleted.")
 
     return comparison_response_json
-
-
-# for testing
-# image_url = "https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/c45f44d7-5e76-46c2-ae61-8a62bb28e62e"
-# image_data = download_image(image_url)
-# if image_data:
-#     temp_image_path = save_temp_image(image_data)
-#     # Open the image using PIL
-#     # image = Image.open(temp_image_path)
-#     # image.show()
-#     # Do something with the opened image (e.g., display it)
-#     comparison_response_json = img_comparison.compare_two_images(image1_path, image2_path)
-#     # input("Press Enter to continue...")
-#     # Delete the temporary image file
-#     delete_temp_image(temp_image_path)
-#     print("Temporary image file deleted.")
-# else:
-#     print("Failed to download the image.")
-
-
-
