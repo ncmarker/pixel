@@ -12,6 +12,10 @@
 /react-app/build/
 /react-app/coverage/
 
+# Dependencies
+/react-app/.pnp
+/react-app/.pnp.js
+
 # Logs
 logs
 *.log
@@ -29,7 +33,7 @@ jspm_packages/
 # Production build folder
 /build
 
-# MacOS specific
+# Misc
 .DS_Store
 
 # IDE specific

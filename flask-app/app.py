@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, session, url_for, render_template
+from flask_cors import CORS
 import requests
 import json
 import secrets
@@ -19,6 +20,7 @@ AUTHORIZE_URL = 'https://www.figma.com/oauth'
 TOKEN_URL = 'https://www.figma.com/api/oauth/token'
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = secrets.token_hex(16)
 
 @app.before_request
@@ -197,4 +199,5 @@ def api_get_image_link():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost', port=3000)
+    app.run(debug=True, host='localhost', port=5000)
+    # was port 3000

@@ -1,0 +1,7 @@
+/* example usage */
+:root {
+    --blue: #1e90ff;
+    --white: #ffffff;
+  }
+  
+  body { background-color: var(--blue); }
