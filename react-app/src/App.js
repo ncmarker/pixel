@@ -1,22 +1,27 @@
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import LandingPage from './pages/landing';
+import EnterLinks from './pages/enterlinks';
+
+import ComparePage from './pages/compare';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        {/* Route to Landing Page (root) */}
+        <Route exact path="/" component={LandingPage} />
+
+        {/* Route to EnterLinks Page */}
+        <Route path="/enterlinks" component={EnterLinks} />
+
+        {/* Route to Comparison Page */}
+        <Route path="/compare" component={ComparePage} />
+
+        {/* Redirect all other paths to Home */}
+        <Redirect to="/" />
+      </Switch>
+    </Router>
   );
 }
 

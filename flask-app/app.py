@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, session, url_for, render_template
+from flask import Flask, request, redirect, session, url_for, render_template, send_from_directory
 from flask_cors import CORS
 import requests
 import json
@@ -19,7 +19,9 @@ SCOPE = 'files:read, file_variables:read,file_dev_resources:read,file_variables:
 AUTHORIZE_URL = 'https://www.figma.com/oauth'
 TOKEN_URL = 'https://www.figma.com/api/oauth/token'
 
-app = Flask(__name__)
+# app = Flask(__name__)
+app = Flask(__name__, static_folder='../react-app/public/index.html')
+
 CORS(app)
 app.secret_key = secrets.token_hex(16)
 
@@ -109,9 +111,18 @@ def fetch_image_download_link(access_token, node_id):
         return ['ERROR']
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
+    
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
+    """
+    Serves the index.html file, which acts as the entry point for the React app.
+    React Router will handle the actual path routing in the browser.
+    """
+    return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/login')
@@ -140,9 +151,13 @@ def oauth_callback():
         # Save access token in session
         session['access_token'] = access_token
 
-        return redirect(url_for('home'))
+        # return redirect(url_for('home'))
+        # success: redirect to the enter links page
+        return redirect('/enterlinks')
     else:
-        return 'Error: Failed to obtain authorization code'
+        # return 'Error: Failed to obtain authorization code'
+        # failure: redirect back to landing page and display error
+        return redirect('/?error=auth_faulure')
 
     
 
@@ -199,5 +214,5 @@ def api_get_image_link():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost', port=5000)
+    app.run(debug=True, host='localhost', port=3001)
     # was port 3000
