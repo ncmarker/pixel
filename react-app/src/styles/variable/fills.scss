@@ -1,0 +1,21 @@
+:root {
+    /* add variables for colors */
+    
+    --tri-gradient: radial-gradient(circle at 20% 20%, #31183d, transparent 20%),
+                    radial-gradient(circle at 80% 40%, #31183d, transparent 30%),
+                    radial-gradient(circle at 50% 80%, #27365b, transparent 40%),
+                    #0c0a2d;
+  }
+  
+  %base-gradient {
+    height: 100vh;
+    background-blend-mode: screen;
+  }
+
+  .bg {
+    &-tri-gradient {
+      @extend %base-gradient;
+      background: var(--tri-gradient);
+    }
+  }
+  
