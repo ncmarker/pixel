@@ -12,7 +12,7 @@ function App() {
     <Router basename="/">
       <Routes>
         {/* Route to Landing Page (root) */}
-        <Route path="/" component={LandingPage} />
+        <Route path="/" element={<LandingPage/>} />
 
         {/* Route to EnterLinks Page */}
         {/* <Route path="/enterlinks" component={EnterLinks} /> */}
