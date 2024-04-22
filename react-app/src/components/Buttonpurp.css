@@ -1,0 +1,20 @@
+.long-button {
+    color: var(--item-box-color, #F8F8F8);  
+    color: var(--item-box-color, color(display-p3 0.9729 0.9729 0.9729));
+    font-family: var(--reg-font);
+    height: 52px;
+    width: 380px;
+    padding: 14px 26px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 0px;
+    background: rgba(163, 84, 235, 0.80);
+    background: color(display-p3 0.6 0.3451 0.8902 / 0.80);
+}
+
+.long-button:hover {
+    cursor:pointer;
+}

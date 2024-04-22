@@ -1,0 +1,9 @@
+body {
+    background: var(--tri-gradient);
+    background-size: auto;
+    background-repeat: repeat;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

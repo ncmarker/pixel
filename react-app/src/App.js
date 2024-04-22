@@ -1,27 +1,28 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LandingPage from './pages/landing';
-import EnterLinks from './pages/enterlinks';
-
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import LandingPage from './pages/Landing';
+import EnterLinks from './pages/Enterlinks';
 import ComparePage from './pages/compare';
+
 
 
 function App() {
   return (
-    <Router>
-      <Switch>
+    <div className="App">
+    <Router basename="/">
+      <Routes>
         {/* Route to Landing Page (root) */}
-        <Route exact path="/" component={LandingPage} />
+        <Route path="/" element={<LandingPage/>} />
 
         {/* Route to EnterLinks Page */}
-        <Route path="/enterlinks" component={EnterLinks} />
+        <Route path="/enterlinks" element={<EnterLinks/>} />
 
         {/* Route to Comparison Page */}
-        <Route path="/compare" component={ComparePage} />
-
-        {/* Redirect all other paths to Home */}
-        <Redirect to="/" />
-      </Switch>
+        <Route path="/compare" element={<ComparePage/>} />
+      </Routes>
+      {/* Redirect all other paths to Home */}
+      {/* <Navigate to="/" /> */}
     </Router>
+    </div>
   );
 }
 
