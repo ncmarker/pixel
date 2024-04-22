@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ButtonPurp from '../components/Buttonpurp'
-import logo from '../images/pixel_logo_final.png'
+import logo from '../images/pixel_logo.svg'
 import './Enterlinks.css'
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -11,9 +11,9 @@ const EnterLinks = () => {
 
   return (
     <div className='h-screen flex flex-col justify-center items-center'>
-      <Card className=" px-[60px] pb-[60px]">
+      <Card className=" p-[60px]">
         <div className='flex flex-col'>
-          <div className="flex flex-row justify-center">
+          <div className="flex flex-row justify-center mb-10">
             <img src={logo} alt="logo"/>
           </div>
           <div className='flex flex-col gap-10'>
