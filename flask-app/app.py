@@ -14,7 +14,7 @@ import scrape_url as su
 load_dotenv()
 CLIENT_ID = os.getenv("FIGMA_CLIENT_ID")
 CLIENT_SECRET = os.getenv("FIGMA_CLIENT_SECRET")
-REDIRECT_URI = 'http://localhost:3000/oauth/callback'  # Update if using a different redirect URI
+REDIRECT_URI = 'http://localhost:3001/oauth/callback'  # Update if using a different redirect URI
 SCOPE = 'files:read, file_variables:read,file_dev_resources:read,file_variables:write'
 AUTHORIZE_URL = 'https://www.figma.com/oauth'
 TOKEN_URL = 'https://www.figma.com/api/oauth/token'
@@ -111,18 +111,18 @@ def fetch_image_download_link(access_token, node_id):
         return ['ERROR']
 
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
     
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def index(path):
-    """
-    Serves the index.html file, which acts as the entry point for the React app.
-    React Router will handle the actual path routing in the browser.
-    """
-    return send_from_directory(app.static_folder, 'index.html')
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def index(path):
+#     """
+#     Serves the index.html file, which acts as the entry point for the React app.
+#     React Router will handle the actual path routing in the browser.
+#     """
+#     return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/login')
@@ -136,6 +136,7 @@ def login():
 def oauth_callback():
     code = request.args.get('code')
     state = request.args.get('state')
+    print("HERE")
 
     if code and session['state'] == state:
         data = {
@@ -153,10 +154,12 @@ def oauth_callback():
 
         # return redirect(url_for('home'))
         # success: redirect to the enter links page
+        print("CODE", access_token)
         return redirect('/enterlinks')
     else:
         # return 'Error: Failed to obtain authorization code'
         # failure: redirect back to landing page and display error
+        print("CODE", access_token)
         return redirect('/?error=auth_faulure')
 
     

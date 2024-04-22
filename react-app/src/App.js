@@ -3,6 +3,7 @@ import LandingPage from './pages/Landing';
 import EnterLinks from './pages/Enterlinks';
 import ComparePage from './pages/compare';
 import SubmitPage from './pages/Submit';
+import LoadingPage from './pages/Loading';
 
 
 
@@ -18,6 +19,8 @@ function App() {
         <Route path="/enterlinks" element={<EnterLinks/>} />
 
         <Route path="/enterlinks/submit" element={<SubmitPage/>} />
+
+        <Route path="/enterlinks/submit/loading" element={<LoadingPage/>} />
 
         {/* Route to Comparison Page */}
         <Route path="/compare" element={<ComparePage/>} />

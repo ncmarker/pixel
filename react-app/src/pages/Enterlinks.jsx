@@ -11,7 +11,7 @@ const Enterlinks = () => {
 
   return (
     <>
-      <div className="flex flex-row justify-center items-center gap-[20px] mt-[50px]">
+      <div className="flex flex-row justify-center items-center gap-[20px] pt-[50px]">
         <Paginator className="bg-purple"/>
         <Paginator className="bg-grey-gradient-20"/>
         <Paginator className="bg-grey-gradient-20"/>
