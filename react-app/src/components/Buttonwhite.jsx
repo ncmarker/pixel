@@ -3,7 +3,7 @@ import './Buttonwhite.css'
 
 const ButtonWhite = (props) => {
   return (
-    <div className="button-container">
+    <div className={`${props.className}`}>
       <button className="reg-button">{props.text}</button>
     </div>
   )

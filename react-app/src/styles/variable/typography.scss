@@ -8,6 +8,14 @@
         line-height: 30px;
     }
     /* repeat this for all text styles */
+
+    &-small-body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
 }
 
 .title-text {
