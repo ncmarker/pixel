@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Paginator = () => {
+const Paginator = (props) => {
   return (
-    <div>
-      
+    <div className={`flex flex-row justify-center items-center h-[5px] w-[111px] ${props.className}`}>
+
     </div>
   )
 }

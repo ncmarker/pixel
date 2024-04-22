@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import LandingPage from './pages/Landing';
 import EnterLinks from './pages/Enterlinks';
 import ComparePage from './pages/compare';
+import SubmitPage from './pages/Submit';
 
 
 
@@ -15,6 +16,8 @@ function App() {
 
         {/* Route to EnterLinks Page */}
         <Route path="/enterlinks" element={<EnterLinks/>} />
+
+        <Route path="/enterlinks/submit" element={<SubmitPage/>} />
 
         {/* Route to Comparison Page */}
         <Route path="/compare" element={<ComparePage/>} />

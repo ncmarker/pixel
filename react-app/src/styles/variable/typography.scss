@@ -41,19 +41,3 @@
     align-items: row;
     justify-content: center;
 }
-
-.input-container {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    font-family: var(--reg-font);
-    color: var(--60-white, rgba(255, 255, 255, 0.60));
-    color: var(--60-white, color(display-p3 1 1 1 / 0.60));
-    height: auto;
-    width: 340px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.20);
-    background: color(display-p3 1 1 1 / 0.20);
-    border: 0px;
-}
