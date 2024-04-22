@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../images/pixel_logo_final.png'
+import logo from '../images/pixel_logo.svg'
 import ButtonWhite from '../components/Buttonwhite'
 import { useLocation } from 'react-router-dom';
 import './Landing.css'
@@ -20,7 +20,8 @@ const Landing = () => {
       </div>
       {errorMessage && <p>Error: Authentication failed. Please try again.</p>}
       <form action={`${process.env.REACT_APP_API_URL}/login`} method="GET" id="landing-button">
-        <ButtonWhite className="mb-[100px]"text="Connect to Figma" type="submit"/>
+        {/* use javascript on click */}
+        <ButtonWhite text="Connect to Figma" type="submit"/>
       </form>
     </div>
   )
