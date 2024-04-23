@@ -18,7 +18,8 @@ function App() {
         {/* Route to EnterLinks Page */}
         <Route path="/enterlinks" element={<EnterLinks/>} />
 
-        <Route path="/enterlinks/submit" element={<SubmitPage/>} />
+        {/* Route to Dropdown Page ----- EDIT */}
+        <Route path="/submit" element={<SubmitPage/>} />
 
         <Route path="/enterlinks/submit/loading" element={<LoadingPage/>} />
 

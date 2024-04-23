@@ -4,6 +4,12 @@
     --tri-gradient: radial-gradient(circle at 20% 120%, #31183d, transparent 60%),
                     radial-gradient(circle at 80% 120%, #27365b, transparent 60%),
                     #0c0a2d;
+
+    --purple-main: #9958E3;
+    --purple-dark: #5611A3;
+    --pink-main: #B03C69;
+    --light-blue: #5D90B9;
+    --grey: #7D7D7D;
 }
 
 .bg {
@@ -18,17 +24,16 @@
   &-purple {
       background: #460B6A;
   }
+
+  &-tri-gradient {
+    @extend %base-gradient;
+    background: var(--tri-gradient);
+    background-size: cover;
+  }
 }
   
-  %base-gradient {
-    height: 100vh;
-  }
+%base-gradient {
+  height: 100vh;
+}
 
-  .bg {
-    &-tri-gradient {
-      @extend %base-gradient;
-      background: var(--tri-gradient);
-      background-size: cover;
-    }
-  }
   

@@ -5,6 +5,7 @@
     --title-font: "Louis George Cafe";
     --title-font-size: 52px;
     --subtext-font-size: 24px;
+    --text-input-color: rgba(255, 255, 255, 0.60);
 }
 
 @font-face {
@@ -59,26 +60,3 @@
     }
 }
 
-// .title-text {
-//     font-family: var(--title-font);
-//     color: var(--font-color);
-//     font-size: var(--title-font-size);
-//     font-style: normal;
-//     // text-align: center;
-//     font-weight: 700;
-// }
-
-// .header-text {
-//     font-family: var(--reg-font);
-//     color: var(--font-color);
-//     font-size: var(--heading-font-size);
-//     text-align: center;
-//     font-style: normal;
-//     font-weight: 400;
-// }
-
-.button-container {
-    display: flex;
-    align-items: row;
-    justify-content: center;
-}
