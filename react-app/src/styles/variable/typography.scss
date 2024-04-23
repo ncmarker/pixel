@@ -21,6 +21,24 @@
         line-height: normal;
     }
 
+    &-drop-down {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #6E6E78;
+    }
+
+    &-20px-font-size {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+
     &-title {
         font-family: var(--title-font);
         color: var(--font-color);

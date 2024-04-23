@@ -113,18 +113,18 @@ def fetch_image_download_link(access_token, node_id):
         return ['ERROR']
 
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
     
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def index(path):
-    """
-    Serves the index.html file, which acts as the entry point for the React app.
-    React Router will handle the actual path routing in the browser.
-    """
-    return send_from_directory(app.static_folder, 'index.html')
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def index(path):
+#     """
+#     Serves the index.html file, which acts as the entry point for the React app.
+#     React Router will handle the actual path routing in the browser.
+#     """
+#     return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/login')
@@ -138,6 +138,7 @@ def login():
 def oauth_callback():
     code = request.args.get('code')
     state = request.args.get('state')
+    print("HERE")
 
     if code and session['state'] == state:
         data = {

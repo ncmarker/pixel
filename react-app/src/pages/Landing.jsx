@@ -2,10 +2,20 @@ import React from 'react';
 import logo from '../images/pixel_logo.svg'
 import ButtonWhite from '../components/Buttonwhite'
 import { useLocation } from 'react-router-dom';
+import axios from "axios";
+
 
 const Landing = () => {
   const location = useLocation();
   const errorMessage = new URLSearchParams(location.search).get('error');
+
+  // function figmaAuth() {
+  //   axios({
+  //     method: "GET",
+  //     url: {`${process.env.REACT_APP_API_URL}/login`}
+  //   })
+  //   .then((response) => console.log("Login Page"))
+  // }
 
   return (
     <div className='h-screen overflow-y-hidden'>
@@ -15,7 +25,7 @@ const Landing = () => {
       {errorMessage && <p>Error: Authentication failed. Please try again.</p>}
       <form action={`${"http://localhost:3001"}/login`} method="GET" className="flex justify-center align-items">
         {/* use javascript on click */}
-        <ButtonWhite text="Connect to Figma" type="submit" className="mb-[0px]"/>
+        <ButtonWhite text="Connect to Figma" type="submit" className="pb-[20px]"/>
       </form>
     </div>
   )
