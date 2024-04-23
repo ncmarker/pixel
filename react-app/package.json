@@ -2,7 +2,7 @@
   "name": "react-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy:": "http://localhost:3001",
   "dependencies": {
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
