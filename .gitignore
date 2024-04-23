@@ -2,6 +2,7 @@
 /flask-app/.env
 .venv/
 /flask-app/__pycache__
+/flask-app/flask-sessions
 
 # React-specific
 /react-app/node_modules/

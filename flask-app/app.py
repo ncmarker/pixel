@@ -1,4 +1,5 @@
-from flask import Flask, request, redirect, session, url_for, render_template, send_from_directory
+from flask import Flask, request, redirect, session, url_for, render_template, send_from_directory, jsonify
+from flask_session import Session
 from flask_cors import CORS
 import requests
 import json
@@ -24,13 +25,17 @@ REACT_APP_BASE_URL = 'http://localhost:3000'
 # app = Flask(__name__)
 app = Flask(__name__, static_folder='../react-app/public/index.html')
 
-CORS(app)
+# Configure Flask-Session to use server-side sessions
+app.config['SESSION_TYPE'] = 'filesystem'  # Use filesystem-based sessions
+app.config['SESSION_FILE_DIR'] = './flask-sessions'  # Directory to store session files
+app.config['SESSION_PERMANENT'] = False  # if not working change back to true
+app.config['PERMANENT_SESSION_LIFETIME'] = 900  # Session lifetime in seconds (15 min)
+app.config["SESSION_COOKIE_SAMESITE"] = "None"
+app.config["SESSION_COOKIE_SECURE"] = False  # set to true in production
+
+Session(app)
+CORS(app,supports_credentials=True)
 app.secret_key = secrets.token_hex(16)
-
-@app.before_request
-def before_request():
-    session.modified = True
-
 
 # generate a random 32 char string 
 def generate_random_state():
@@ -55,6 +60,8 @@ def fetch_frames(figma_file_url, access_token):
     session['file_key'] = file_key
     url = f'https://api.figma.com/v1/files/{file_key}'
 
+    print(access_token)
+
     try: 
         response = requests.get(url, headers=headers)
         response.raise_for_status() # raise HTTP errors
@@ -78,13 +85,11 @@ def fetch_frames(figma_file_url, access_token):
                 # Add tuples to the dictionary with page name as key
                 page_frames[page_name] = frames
 
-        # print(page_frames)
-
-        return page_frames
+        return True, page_frames
     
     except requests.exceptions.RequestException as e:
         print(f"Error fetching frames: {e}")
-        return ['ERROR']
+        return False, ['ERROR']
     
 
 # get link for image download of a specific frame in a page from figma  
@@ -117,15 +122,6 @@ def fetch_image_download_link(access_token, node_id):
 def index():
     return render_template('index.html')
     
-# @app.route('/', defaults={'path': ''})
-# @app.route('/<path:path>')
-# def index(path):
-#     """
-#     Serves the index.html file, which acts as the entry point for the React app.
-#     React Router will handle the actual path routing in the browser.
-#     """
-#     return send_from_directory(app.static_folder, 'index.html')
-
 
 @app.route('/login')
 def login():
@@ -138,7 +134,6 @@ def login():
 def oauth_callback():
     code = request.args.get('code')
     state = request.args.get('state')
-    print("HERE")
 
     if code and session['state'] == state:
         data = {
@@ -153,6 +148,7 @@ def oauth_callback():
 
         # Save access token in session
         session['access_token'] = access_token
+        session.modified = True
 
         # return redirect(url_for('home'))
         # success: redirect to the enter links page
@@ -160,25 +156,45 @@ def oauth_callback():
     else:
         # return 'Error: Failed to obtain authorization code'
         # failure: redirect back to landing page and display error
-        return redirect(REACT_APP_BASE_URL + 'landing/?error=auth_faulure')
+        return redirect(REACT_APP_BASE_URL + 'landing/?error=auth_failure')
 
     
 
-@app.route('/home', methods=['GET', 'POST'])
-def home():
-    if request.method == 'POST':
-        figma_file_url = request.form['figma_file_url']
-        deployed_project_url = request.form['deployed_url']
+# @app.route('/home', methods=['GET', 'POST'])
+# def home():
+#     if request.method == 'POST':
+#         figma_file_url = request.form['figma_file_url']
+#         deployed_project_url = request.form['deployed_url']
 
-        page_frames = fetch_frames(figma_file_url, session.get('access_token'))
+#         page_frames = fetch_frames(figma_file_url, session.get('access_token'))
+#         deployed_project_pages = su.get_pages_from_url(deployed_project_url)
+
+#         session['page_frames'] = page_frames
+#         # session['deployed_project_pages'] = deployed_project_pages
+
+#         return render_template('home.html', page_frames=page_frames, deployed_project_pages=deployed_project_pages)
+    
+#     return render_template('home.html')
+
+@app.route('/convertlinks', methods=['GET', 'POST'])
+def convertLinks():
+    if request.method == 'POST':
+        data = request.get_json()
+        figma_file_url = data.get('figmaLink')
+        deployed_project_url = data.get('prototypeLink')
+
+        page_frames_success, page_frames = fetch_frames(figma_file_url, session.get('access_token'))
         deployed_project_pages = su.get_pages_from_url(deployed_project_url)
 
         session['page_frames'] = page_frames
         # session['deployed_project_pages'] = deployed_project_pages
 
-        return render_template('home.html', page_frames=page_frames, deployed_project_pages=deployed_project_pages)
-    
-    return render_template('home.html')
+        if page_frames_success and page_frames is not None and deployed_project_pages is not None:
+            # If both data are available, return them as JSON response
+            return jsonify({'page_frames': page_frames, 'deployed_project_pages': deployed_project_pages})
+        else:
+            # If any error occurs, return an error message
+            return jsonify({'error': 'Error fetching pages'}), 500
 
 
 @app.route('/api/<page>/')

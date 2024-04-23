@@ -2,20 +2,10 @@ import React from 'react';
 import logo from '../images/pixel_logo.svg'
 import ButtonWhite from '../components/Buttonwhite'
 import { useLocation } from 'react-router-dom';
-import axios from "axios";
-
 
 const Landing = () => {
   const location = useLocation();
   const errorMessage = new URLSearchParams(location.search).get('error');
-
-  // function figmaAuth() {
-  //   axios({
-  //     method: "GET",
-  //     url: {`${process.env.REACT_APP_API_URL}/login`}
-  //   })
-  //   .then((response) => console.log("Login Page"))
-  // }
 
   return (
     <div className='h-screen overflow-y-hidden'>
@@ -24,8 +14,7 @@ const Landing = () => {
       <p className="text-subtext mx-auto mb-[40px] mt-[40px] max-w-[726px]" >Pixel streamlines UI compliance to make sure that your vision and your product are aligned</p>
       {errorMessage && <p>Error: Authentication failed. Please try again.</p>}
       <form action={`${"http://localhost:3001"}/login`} method="GET" className="flex justify-center align-items">
-        {/* use javascript on click */}
-        <ButtonWhite text="Connect to Figma" type="submit" className="pb-[20px]"/>
+        <ButtonWhite text="Connect to Figma" type="submit"/>
       </form>
     </div>
   )

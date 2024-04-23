@@ -3,10 +3,8 @@
     font-size: 16px;
     font-weight: 510;
     text-align: center;
-    color: var(--Navy, #0C0A31);
     color: var(--Navy, color(display-p3 0.0471 0.0392 0.1765));
     background: var(--font-color);
-
     width: auto;
     height: 52px;
     vertical-align: middle;
@@ -16,7 +14,6 @@
 }
 
 .reg-button:hover {
-    box-shadow: 2px 3px 16px 1px #FFF;
     box-shadow: 2px 3px 16px 1px color(display-p3 1 1 1);
     cursor: pointer;
 }
