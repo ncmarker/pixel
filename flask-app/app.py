@@ -14,10 +14,12 @@ import scrape_url as su
 load_dotenv()
 CLIENT_ID = os.getenv("FIGMA_CLIENT_ID")
 CLIENT_SECRET = os.getenv("FIGMA_CLIENT_SECRET")
-REDIRECT_URI = 'http://localhost:3000/oauth/callback'  # Update if using a different redirect URI
+REDIRECT_URI = 'http://localhost:3001/oauth/callback'  # Update if using a different redirect URI
 SCOPE = 'files:read, file_variables:read,file_dev_resources:read,file_variables:write'
 AUTHORIZE_URL = 'https://www.figma.com/oauth'
 TOKEN_URL = 'https://www.figma.com/api/oauth/token'
+
+REACT_APP_BASE_URL = 'http://localhost:3000'
 
 # app = Flask(__name__)
 app = Flask(__name__, static_folder='../react-app/public/index.html')
@@ -153,11 +155,11 @@ def oauth_callback():
 
         # return redirect(url_for('home'))
         # success: redirect to the enter links page
-        return redirect('/enterlinks')
+        return redirect(REACT_APP_BASE_URL + '/enterlinks')
     else:
         # return 'Error: Failed to obtain authorization code'
         # failure: redirect back to landing page and display error
-        return redirect('/?error=auth_faulure')
+        return redirect(REACT_APP_BASE_URL + 'landing/?error=auth_faulure')
 
     
 

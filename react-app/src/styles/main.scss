@@ -2,14 +2,15 @@
 // Importing base styles
 @import 'variable/typography';  
 @import 'variable/fills';
-@import 'variable/bg';
+// @import 'variable/bg';
 
 // Importing tailwind components
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-// Importing components scss
 
-
-// Optionally, some global styles
+// global styles
+.App {
+    height: 100vh;
+}
