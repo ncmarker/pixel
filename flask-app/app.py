@@ -30,7 +30,7 @@ app.config['SESSION_TYPE'] = 'filesystem'  # Use filesystem-based sessions
 app.config['SESSION_FILE_DIR'] = './flask-sessions'  # Directory to store session files
 app.config['SESSION_PERMANENT'] = False  # if not working change back to true
 app.config['PERMANENT_SESSION_LIFETIME'] = 900  # Session lifetime in seconds (15 min)
-app.config["SESSION_COOKIE_SAMESITE"] = "None"
+# app.config["SESSION_COOKIE_SAMESITE"] = "None"
 app.config["SESSION_COOKIE_SECURE"] = False  # set to true in production
 
 Session(app)
