@@ -8,8 +8,8 @@ const Loading = () => {
   return (
     <>
     <div className="h-screen">
-        <div className="flex flex-col justify-center items-center">
-        <Paginator filledLines='2' className="mt-10"/>
+      <Paginator filledLines='2' className="mt-10"/>
+        <div className="flex flex-col justify-center items-center" style={{width: "100vw", height: "75vh"}}>
         <Card className="flex flex-col items-center mt-[100px] p-[60px]">
           <img className="w-[88px] mb-[55px]" src={logo} alt="pixel logo"/>
           <Spinner color='var(--purple-main)'/>
