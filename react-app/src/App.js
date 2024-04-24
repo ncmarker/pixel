@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import EnterLinks from './pages/Enterlinks';
-import ComparePage from './pages/compare';
+import ComparePage from './pages/Compare';
 import SubmitPage from './pages/Submit';
 import LoadingPage from './pages/Loading';
 
@@ -21,7 +21,7 @@ function App() {
         {/* Route to Dropdown Page ----- EDIT */}
         <Route path="/submit" element={<SubmitPage/>} />
 
-        <Route path="/enterlinks/submit/loading" element={<LoadingPage/>} />
+        <Route path="loading" element={<LoadingPage/>} />
 
         {/* Route to Comparison Page */}
         <Route path="/compare" element={<ComparePage/>} />
