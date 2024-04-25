@@ -46,7 +46,7 @@ const Enterlinks = () => {
 
         if (response.status === 200) {
           console.log(response.data);
-          navigate('/submit', { infoName: response.data });
+          navigate('/pickscreens', { state: { pageData: response.data } });
         }
       } catch(error) {
           console.error('Error', error);
@@ -64,7 +64,7 @@ const Enterlinks = () => {
     <div className="h-screen overflow-y-hidden">
     <Paginator filledLines='1' className="mx-auto mb-[159px] mt-[78px]"/>
         <Card className="p-[60px] flex flex-col gap-[40px] min-h-[500px]">
-            <img className="w-[88px] mx-auto" src={logo} alt="pxel logo" />
+            <img className="w-[88px] mx-auto" src={logo} alt="pixel logo" />
             {loading ? ( 
                 <Spinner color='var(--purple-main)'/>
             ) : (

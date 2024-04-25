@@ -23,18 +23,20 @@ TOKEN_URL = 'https://www.figma.com/api/oauth/token'
 REACT_APP_BASE_URL = 'http://localhost:3000'
 
 # app = Flask(__name__)
-app = Flask(__name__, static_folder='../react-app/public/index.html')
+app = Flask(__name__, static_folder='../react-app/public/', static_url_path='/')
 
 # Configure Flask-Session to use server-side sessions
 app.config['SESSION_TYPE'] = 'filesystem'  # Use filesystem-based sessions
 app.config['SESSION_FILE_DIR'] = './flask-sessions'  # Directory to store session files
-app.config['SESSION_PERMANENT'] = False  # if not working change back to true
+app.config['SESSION_PERMANENT'] = True  # if not working change back to true
 app.config['PERMANENT_SESSION_LIFETIME'] = 900  # Session lifetime in seconds (15 min)
-app.config["SESSION_COOKIE_SAMESITE"] = "None"
+# app.config["SESSION_COOKIE_SAMESITE"] = "None"
 app.config["SESSION_COOKIE_SECURE"] = False  # set to true in production
 
 Session(app)
-CORS(app,supports_credentials=True)
+# CORS(app,supports_credentials=True)
+CORS(app, supports_credentials=True, origins=["http://localhost:3000"])  # Assuming React runs on port 3000
+
 app.secret_key = secrets.token_hex(16)
 
 # generate a random 32 char string 
@@ -127,6 +129,7 @@ def index():
 def login():
     state = generate_random_state()
     session['state'] = state
+
     return redirect(f'{AUTHORIZE_URL}?client_id={CLIENT_ID}&redirect_uri={REDIRECT_URI}&scope={SCOPE}&response_type=code&state={state}')
 
 
@@ -135,7 +138,7 @@ def oauth_callback():
     code = request.args.get('code')
     state = request.args.get('state')
 
-    if code and session['state'] == state:
+    if code and session.get('state') == state:
         data = {
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
@@ -156,7 +159,7 @@ def oauth_callback():
     else:
         # return 'Error: Failed to obtain authorization code'
         # failure: redirect back to landing page and display error
-        return redirect(REACT_APP_BASE_URL + 'landing/?error=auth_failure')
+        return redirect(REACT_APP_BASE_URL + '/landing/?error=auth_failure')
 
     
 

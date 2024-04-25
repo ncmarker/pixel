@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import LandingPage from './pages/Landing';
 import EnterLinks from './pages/Enterlinks';
 import ComparePage from './pages/compare';
-import SubmitPage from './pages/Submit';
+import PickScreens from './pages/PickScreens';
 import LoadingPage from './pages/Loading';
 
 
@@ -19,7 +19,7 @@ function App() {
         <Route path="/enterlinks" element={<EnterLinks/>} />
 
         {/* Route to Dropdown Page ----- EDIT */}
-        <Route path="/submit" element={<SubmitPage/>} />
+        <Route path="/pickscreens" element={<PickScreens/>} />
 
         <Route path="/enterlinks/submit/loading" element={<LoadingPage/>} />
 
