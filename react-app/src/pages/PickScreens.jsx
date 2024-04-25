@@ -1,27 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 import Paginator from '../components/Paginator';
 import ButtonPurp from '../components/Buttonpurp';
 import logo from '../images/pixel_logo.svg';
 import Card from '../components/Card';
 import InputDropdown from '../components/InputDropdown';
+import Spinner from '../components/Spinner';
 
 
 const PickScreens = () => {
 
   const location = useLocation();
   const [figmaPages, setFigmaPages] = useState([]);
+  const [figmaFrames, setFigmaFrames] = useState([]);
   const [deployPages, setDeployPages] = useState([]);
   const [selectedFigmaPage, setSelectedFigmaPage] = useState(null);
+  const [selectedFigmaFrame, setSelectedFigmaFrame] = useState(null);
   const [selectedDeployPage, setSelectedDeployPage] = useState(null);
 
+  const [pageFrames, setPageFrames] = useState({});
+
+  const [figmaPageErrorMsg, setFigmaPageErrorMsg] = useState("");
+  const [figmaFrameErrorMsg, setFigmaFrameErrorMsg] = useState("");
+  const [deployedErrorMsg, setDeployedErrorMsg] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  let navigate = useNavigate();
+
+
   useEffect(() => {
-    console.log('Location state:', location.state); // Check what's actually in location state
+    // console.log('Location state:', location.state); // Check what's actually in location state
 
     // Ensure the data exists
     if (location.state?.pageData) {
-      console.log('got here 1');
       const { deployed_project_pages, page_frames } = location.state.pageData;
 
       // Deployed project pages likely an array of URLs
@@ -33,47 +47,121 @@ const PickScreens = () => {
         value: pageName
       }));
       setFigmaPages(figmaPagesOptions);
-      console.log(figmaPages);
+      setPageFrames(page_frames);
     }
   }, [location.state]);
 
   const handleFigmaPageSelection = (selectedOption) => {
     setSelectedFigmaPage(selectedOption);
+
+    const frameData = pageFrames[selectedOption] || []; 
+
+    const transformedFrames = frameData.map(frame => ({
+        name: frame[0],  // Frame name
+        id: frame[1],    // Frame ID
+        dimensions: {
+            height: frame[2][0], // Height from dimensions array
+            width: frame[2][1] // Width from dimensions array
+        }
+    }));
+
+    setFigmaFrames(transformedFrames); 
+    // console.log('Transformed Frames:', transformedFrames);
+  };
+
+  const handleFigmaFrameSelection = (selectedOption) => {
+    setSelectedFigmaFrame(selectedOption);
   };
 
   const handleDeployPageSelection = (selectedOption) => {
     setSelectedDeployPage(selectedOption);
   };
 
-  // To pass to next page or handle data submission
-  const handleSubmit = () => {
-    // Navigate to next page or perform an action with the selected data
-    console.log(selectedFigmaPage, selectedDeployPage);
-    // navigate('/next', { state: { selectedFigmaPage, selectedDeployPage } });
+  // make request to compare pages
+  // need to send frame_id, width, height, and deployed link
+  const handleSubmit = async () => {
+
+    // Update error state accordingly
+    setFigmaPageErrorMsg(selectedFigmaPage ? "" : "Please select a Figma page.");
+    setFigmaFrameErrorMsg(selectedFigmaFrame ? "" : "Please select a Figma frame.");
+    setDeployedErrorMsg(selectedDeployPage ? "" : "Please select a deployed page.");
+
+    // make API request if all dropdowns selected
+    if (selectedFigmaPage && selectedFigmaFrame && selectedDeployPage) {
+      setLoading(true);
+      const frame = figmaFrames.find(frame => frame.id === selectedFigmaFrame);
+
+      console.log(selectedDeployPage);
+      console.log(frame.dimensions.height);
+      console.log(frame.dimensions.width);
+      console.log(frame.id);
+
+      try {
+        const response = await Axios.post('http://localhost:3001/comparescreens', {
+          frameID: frame.id,
+          frameWidth: frame.dimensions.width,
+          frameHeight: frame.dimensions.height,
+          deployedLink: selectedDeployPage
+        }, {
+          withCredentials: true  // include cookies 
+        });
+
+        if (response.status === 200) {
+          console.log("SUCCESS");
+          console.log(response.data);
+          // navigate('/pickscreens', { state: { pageData: response.data } });
+        }
+      } catch(error) {
+          console.error('Error', error);
+          // show error to user
+          setFigmaPageErrorMsg("Error Processing Request.");
+          setFigmaFrameErrorMsg("Error Processing Request.");
+          setDeployedErrorMsg("Error Processing Request.");
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
 
-
   return (
-    <div className="h-screen overflow-y-hidden">
+    <div className="h-screen">
       <Paginator filledLines='2' className="mx-auto mb-[159px] mt-[78px]"/>
       <Card className="p-[60px] flex flex-col gap-[40px] min-h-[500px]">
             <img className="w-[88px] mx-auto" src={logo} alt="pixel logo" />
-            <InputDropdown 
-              label="Figma Page" 
-              initValue="--Select a Page--"
-              options={figmaPages}
-              onChange={handleFigmaPageSelection}
-              value={selectedFigmaPage}
-            />
-            <InputDropdown label="Figma Frame" initValue="--Select a Frame--"/>
-            <InputDropdown 
-              label="Deployed Page" 
-              initValue="--Select a Page--"
-              options={deployPages}
-              onChange={handleDeployPageSelection}
-              value={selectedDeployPage}
-            />
+            {loading ? ( 
+                <Spinner color='var(--purple-main)'/>
+            ) : (
+              <>
+              <div className='flex flex-col gap-[20px]'>
+                <InputDropdown 
+                  label="Figma Page" 
+                  initValue="--Select a Page--"
+                  options={figmaPages}
+                  onChange={handleFigmaPageSelection}
+                  value={selectedFigmaPage}
+                  errorMsg={figmaPageErrorMsg}
+                />
+                <InputDropdown 
+                  label="Figma Frame" 
+                  initValue="--Select a Frame--"
+                  options={figmaFrames.map(frame => ({ label: frame.name, value: frame.id }))}
+                  onChange={handleFigmaFrameSelection}
+                  value={selectedFigmaFrame}
+                  errorMsg={figmaFrameErrorMsg}
+                />
+              </div>
+              <InputDropdown 
+                label="Deployed Page" 
+                initValue="--Select a Page--"
+                options={deployPages}
+                onChange={handleDeployPageSelection}
+                value={selectedDeployPage}
+                errorMsg={deployedErrorMsg}
+              />
+              <ButtonPurp text="Run Pixel" clickHandle={handleSubmit}/>
+              </>
+            )}
       </Card>
     </div>
   )
