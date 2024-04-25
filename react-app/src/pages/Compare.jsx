@@ -1,12 +1,25 @@
 import React from 'react';
+import logo from '../images/pixel_logo.svg'
+import Card from '../components/Card'
 
-export default function ComparePage() {
+const Compare = () => {
   return (
-    <div>
-
+    <div className="h-screen">
+    <div className="flex flex-col items-center justify-content">
+      <img className="p-[50px]" src={logo} alt="pixel logo"/>
+      <div className="flex flex-col gap-[40px]">
+        <h1 className="text-28px-font-size text-white mt-20 mx-[200px]">XXX Errors Found</h1>
+        {/* use map function to populate cards */}
+        <Card className="mx-[200px]">
+          {/* backend stuff */}
+        </Card>
+      </div>
+      </div>
     </div>
   );
 }
+
+export default Compare
 
 
 // REWRITE TO FIT REACT

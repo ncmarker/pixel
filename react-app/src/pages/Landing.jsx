@@ -9,13 +9,15 @@ const Landing = () => {
 
   return (
     <div className='h-screen overflow-y-hidden'>
-      <img className="m-[50px]" src={logo} alt="logo"/>
-      <h1 className="mx-auto mt-[240px] max-w-[686px] text-title text-center">Making sure your product is pixel perfect</h1>
+      <img className="p-[50px]" src={logo} alt="logo"/>
+    <div className="flex flex-col items-center justify-center" style={{width: "100vw", height: "75vh"}}>
+      <h1 className="mx-auto max-w-[686px] text-title text-center">Making sure your product is pixel perfect</h1>
       <p className="text-subtext mx-auto mb-[40px] mt-[40px] max-w-[726px]" >Pixel streamlines UI compliance to make sure that your vision and your product are aligned</p>
       {errorMessage && <p>Error: Authentication failed. Please try again.</p>}
       <form action={`${"http://localhost:3001"}/login`} method="GET" className="flex justify-center align-items">
         <ButtonWhite text="Connect to Figma" type="submit"/>
       </form>
+    </div>
     </div>
   )
 }

@@ -61,8 +61,8 @@ const Enterlinks = () => {
 
 
   return (
-    <div className="h-screen overflow-y-hidden">
-    <Paginator filledLines='1' className="mx-auto mb-[159px] mt-[78px]"/>
+    <div className="h-screen">
+    <Paginator filledLines='1' className="mx-auto mb-[100px] mt-[60px]"/>
         <Card className="p-[60px] flex flex-col gap-[40px] min-h-[500px]">
             <img className="w-[88px] mx-auto" src={logo} alt="pixel logo" />
             {loading ? ( 

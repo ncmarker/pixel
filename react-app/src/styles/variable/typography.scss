@@ -57,6 +57,15 @@
         text-align: center;
         font-weight: 400;
         line-height: normal;
+
+    &-28px-font-size {
+        font-family: var(--reg-font);
+        font-size: 28px;
+        color: var(--font-color);
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
     }
 }
 

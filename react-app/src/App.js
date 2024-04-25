@@ -3,6 +3,8 @@ import LandingPage from './pages/Landing';
 import EnterLinks from './pages/Enterlinks';
 import ComparePage from './pages/compare';
 import PickScreens from './pages/PickScreens';
+import ComparePage from './pages/Compare';
+import SubmitPage from './pages/Submit';
 import LoadingPage from './pages/Loading';
 
 
@@ -21,7 +23,7 @@ function App() {
         {/* Route to Dropdown Page ----- EDIT */}
         <Route path="/pickscreens" element={<PickScreens/>} />
 
-        <Route path="/enterlinks/submit/loading" element={<LoadingPage/>} />
+        <Route path="loading" element={<LoadingPage/>} />
 
         {/* Route to Comparison Page */}
         <Route path="/compare" element={<ComparePage/>} />
