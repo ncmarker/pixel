@@ -109,7 +109,7 @@ const PickScreens = () => {
         if (response.status === 200) {
           console.log("SUCCESS");
           console.log(response.data);
-          // navigate('/pickscreens', { state: { pageData: response.data } });
+          // navigate('/results', { state: { pageData: response.data } });
         }
       } catch(error) {
           console.error('Error', error);

@@ -6,6 +6,7 @@
     --title-font-size: 52px;
     --subtext-font-size: 24px;
     --text-input-color: rgba(255, 255, 255, 0.60);
+    --navy-font: #0c0a2d;
 }
 
 @font-face {
@@ -44,7 +45,7 @@
         color: var(--font-color);
         font-size: var(--title-font-size);
         font-style: normal;
-        text-align: center;
+        // text-align: center;
         font-weight: 700;
         line-height: normal;
     }
@@ -54,9 +55,10 @@
         color: var(--font-color);
         font-size: var(--subtext-font-size);
         font-style: normal;
-        text-align: center;
+        // text-align: center;
         font-weight: 400;
         line-height: normal;
+    }
 
     &-28px-font-size {
         font-family: var(--reg-font);
@@ -66,6 +68,14 @@
         font-weight: 700;
         line-height: normal;
     }
+
+    &-error-num {
+        font-family: var(--reg-font);
+        font-size: 16px;
+        color: var(--navy-font);
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
     }
 }
 
