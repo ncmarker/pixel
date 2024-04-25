@@ -126,8 +126,9 @@ const PickScreens = () => {
 
   return (
     <div className="h-screen">
-      <Paginator filledLines='2' className="mx-auto mb-[159px] mt-[78px]"/>
-      <Card className="p-[60px] flex flex-col gap-[40px] min-h-[500px]">
+      <Paginator filledLines='2' className="mb-[159px] mt-[78px]"/>
+      <div className="flex flex-col justify-center items-center" style={{width: "100vw", height: "75vh"}}>
+      <Card className="p-[60px] flex flex-col gap-[40px]">
             <img className="w-[88px] mx-auto" src={logo} alt="pixel logo" />
             {loading ? ( 
                 <Spinner color='var(--purple-main)'/>
@@ -163,6 +164,7 @@ const PickScreens = () => {
               </>
             )}
       </Card>
+      </div>
     </div>
   )
 }
