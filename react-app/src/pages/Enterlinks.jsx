@@ -6,7 +6,6 @@ import logo from '../images/pixel_logo.svg';
 import Card from '../components/Card';
 import Paginator from '../components/Paginator';
 import InputText from '../components/InputText';
-
 import Spinner from '../components/Spinner';
 
 const Enterlinks = () => {

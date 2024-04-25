@@ -14,7 +14,7 @@ const Dropdown = (props) => {
             ...provided,
             backgroundColor: '#DDE1E6', 
             borderRadius: '8px', 
-            padding: '8px 6px', 
+            padding: '4px 4px', 
             border: 'none',
             boxShadow: 'none', 
             fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
@@ -37,7 +37,10 @@ const Dropdown = (props) => {
                 className="react-select-container" 
                 options={options} 
                 placeholder={props.initValue}
+                value={options.find(option => option.value === props.value)}
+                onChange={(selectedOption) => props.onChange(selectedOption.value)}
             />
+            <p className="text-red-500 text-[14px]">{props.errorMsg}</p>
         </div>
     );
 }

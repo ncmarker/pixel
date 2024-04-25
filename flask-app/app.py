@@ -210,29 +210,49 @@ def api_get_page_frames(page):
     return page_frames_filtered
 
 
-@app.route('/api/compare/')
+# @app.route('/api/compare/')
+# def api_get_image_link():
+#     page = request.args.get('selectedPage')
+#     frame = request.args.get('selectedFrame')
+#     deployedPage = request.args.get('selectedDeployedPage')
+#     page_frames = session['page_frames']
+#     node_id = -1
+#     frame_width = -1
+#     frame_height = -1
+#     for f in page_frames.get(page):
+#         if f[0] == frame:
+#             node_id = f[1]
+#             frame_width = f[2][0]
+#             frame_height = f[2][1]
+
+
+#     img_link1 = fetch_image_download_link(session.get('access_token'), node_id)
+#     image2_path = su.get_screenshot_of_page(deployedPage, frame_width, frame_height)
+
+#     response = sli.compare_url_images(img_link1, image2_path)
+
+#     return response
+
+@app.route('/comparescreens', methods=['GET', 'POST'])
 def api_get_image_link():
-    page = request.args.get('selectedPage')
-    frame = request.args.get('selectedFrame')
-    deployedPage = request.args.get('selectedDeployedPage')
-    page_frames = session['page_frames']
-    node_id = -1
-    frame_width = -1
-    frame_height = -1
-    for f in page_frames.get(page):
-        if f[0] == frame:
-            node_id = f[1]
-            frame_width = f[2][0]
-            frame_height = f[2][1]
+    data = request.get_json()
+    frame_id = data.get('frameID')
+    deployedPage = data.get('deployedLink')
+    frame_width = data.get('frameWidth')
+    frame_height = data.get('frameHeight')
 
+    print(frame_id)
+    print(deployedPage)
+    print(frame_height)
+    print(frame_width)
+    print(request.args)
 
-    img_link1 = fetch_image_download_link(session.get('access_token'), node_id)
+    img_link1 = fetch_image_download_link(session.get('access_token'), frame_id)
     image2_path = su.get_screenshot_of_page(deployedPage, frame_width, frame_height)
 
     response = sli.compare_url_images(img_link1, image2_path)
 
     return response
-
 
 
 if __name__ == '__main__':
