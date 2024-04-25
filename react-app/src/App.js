@@ -2,9 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import LandingPage from './pages/Landing';
 import EnterLinks from './pages/Enterlinks';
 import PickScreens from './pages/PickScreens';
-import ComparePage from './pages/Compare';
-import LoadingPage from './pages/Loading';
-
+import ResultsPage from './pages/Results';
 
 
 function App() {
@@ -21,10 +19,8 @@ function App() {
         {/* Route to Dropdown Page ----- EDIT */}
         <Route path="/pickscreens" element={<PickScreens/>} />
 
-        <Route path="/loading" element={<LoadingPage/>} />
-
         {/* Route to Comparison Page */}
-        <Route path="/compare" element={<ComparePage/>} />
+        <Route path="/results" element={<ResultsPage/>} />
       </Routes>
       {/* Redirect all other paths to Home */}
       {/* <Navigate to="/" /> */}
