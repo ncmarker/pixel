@@ -252,6 +252,8 @@ def api_get_image_link():
 
     response = sli.compare_url_images(img_link1, image2_path)
 
+    response['image2_path'] = image2_path
+
     return response
 
 

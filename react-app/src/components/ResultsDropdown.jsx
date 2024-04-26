@@ -8,7 +8,7 @@ const ResultsDropdown = (props) => {
     return (
         <Card className='w-[750px] p-[40px] border-radius-[8px] hover:shadow-custom' onClick={props.onToggle}>
             <div className='flex flex-row gap-[20px] items-start'>
-                <div className='w-[25px] h-[25px] bg-white rounded-[2px] flex justify-center items-center text-error-num mt-[5px]'>{props.errorNum}</div>
+                <div className='min-w-[25px] h-[25px] bg-white rounded-[2px] flex justify-center items-center text-error-num mt-[5px]'>{props.errorNum}</div>
                 <div className='flex flex-col gap-[20px]'>
                     <div className='flex flex-col gap-[8px]'>
                         <p className='text-subtext'>{props.errorName}</p>
