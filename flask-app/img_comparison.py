@@ -39,14 +39,14 @@ def compare_two_images(image1_path, image2_path):
         "messages": [
             {
                 "role": "system", 
-                "content": "Act as a senior quality assurance specialist for front-end UI design. The goal is to ensure that a Figma mockup (image 1) and a screenshot of the deployed image (image 2) match precisely in terms of their UI. Be very specific, clear, and concise with your feedback."
+                "content": "You are a senior front-end quality assurance specialist that is being asked to compare the UI of two screens. The aim is to verify the consistency of UI elements between a Figma mockup (image 1) and a deployed website screenshot (image 2). Offer precise feedback only on discrepancies you are positive about. Format your response as plain JSON without any decorative or additional non-JSON text."
             },
             {
                 "role": "user",
                 "content": [
                     {
                         "type": "text",
-                        "text": "Identify and highlight any differences between the Figma mockup and the deployed image related to: specific color discrepancies (including specific hex codes), specific font-size, font-weight, and font-style differences, specific spacing differences (margin and padding), and page/component layout inconsistencies. Assume the images are a 1:1 ratio, so any size/spacing discrepancies must be noted. Provide short, clear, and direct feedback on each identified difference in a list format, mentioning the specific location on the images where the variance occurs."
+                        "text": "Assess any distinct UI differences between the Figma mockup and the deployed image. Only report discrepancies that are explicitly clear, such as Text differences (words are mistyped), font styling, element presence or absence, alignment/spacing differences, and explicit color differences (red vs. green) for both text and fills. For subtler color and text variations, refrain from reporting. Maintain a 1:1 ratio presumption for any size or spacing issues. Provide me the following data for each error in JSON format, with no additional text or formatting: {'errorNum': 1, 'errorName': 'Heading text too bold', 'errorDescription': 'The heading containing \"Hello, Nick\" is bolder in the deployed prototype than it is in the Figma design', 'component': 'Heading text containing \"Hello, user\" in the top center of the page'}. Repeat this structure for each discrepancy identified."
                     }, 
                     {
                         "type": "image_url",
@@ -63,7 +63,7 @@ def compare_two_images(image1_path, image2_path):
                 ],
             }
         ],
-        "max_tokens": 300
+        "max_tokens": 500
     }
 
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)

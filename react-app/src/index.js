@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/main.scss';   // SCSS styles
-import './index.css'
+import './index.css';
 
 // require('dotenv').config()
 
@@ -14,5 +14,3 @@ root.render(
     <App/>
   </React.StrictMode> 
 );
-
-

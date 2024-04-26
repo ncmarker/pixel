@@ -8,7 +8,7 @@ const Landing = () => {
   const errorMessage = new URLSearchParams(location.search).get('error');
 
   return (
-    <div className='h-screen overflow-y-hidden'>
+    <div className='h-screen overflow-y-hidden text-center'>
       <img className="p-[50px]" src={logo} alt="logo"/>
     <div className="flex flex-col items-center justify-center" style={{width: "100vw", height: "75vh"}}>
       <h1 className="mx-auto max-w-[686px] text-title text-center">Making sure your product is pixel perfect</h1>
