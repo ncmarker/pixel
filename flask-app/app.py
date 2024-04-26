@@ -241,6 +241,17 @@ def api_get_image_link():
     frame_width = data.get('frameWidth')
     frame_height = data.get('frameHeight')
 
+    # FOR DEMO
+    if deployedPage == "https://ellu.webdev.iyaserver.com/flush-finder/home.php":
+        # Load and return the mock data from the JSON file
+        with open('C:/Users/ickma/pixel_new/flask-app/mock_data/mock_data_1.json', 'r') as file:
+            mock_data_1 = json.load(file)
+            return jsonify(mock_data_1)
+    elif deployedPage == 'https://ellu.webdev.iyaserver.com/flush-finder/login.php':
+        with open('C:/Users/ickma/pixel_new/flask-app/mock_data/mock_data_2.json', 'r') as file:
+            mock_data_2 = json.load(file)
+            return jsonify(mock_data_2)
+
     print(frame_id)
     print(deployedPage)
     print(frame_height)
