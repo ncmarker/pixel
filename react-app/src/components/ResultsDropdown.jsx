@@ -15,9 +15,9 @@ const ResultsDropdown = (props) => {
                         <p className='text-small-body text-white/60'>{props.errorDescription}</p>
                     </div>
                     {props.isActive && <div>
-                    {<div className='flex flex-row rounded-md overflow-hidden w-[580px] shadow-light'>
-                        <CodeSnip codeType="HTML" content={props.HTMLCodeContent} className="rounded-l-md"/>
-                        <CodeSnip codeType="CSS" content={props.CSSCodeContent} className="rounded-r-md"/>   
+                    {<div className='flex flex-row rounded-md overflow-hidden w-[580px] shadow-light bg-[#2E2E2E]'>
+                        <CodeSnip codeType="HTML" content={<pre className='whitespace-pre-wrap'>{props.HTMLCodeContent}</pre>} className="rounded-l-md"/>
+                        <CodeSnip codeType="CSS" content={<pre className='whitespace-pre-wrap'>{props.CSSCodeContent}</pre>} className="rounded-r-md"/>   
                     </div>}   
                     </div>}          
                 </div>

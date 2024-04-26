@@ -41,6 +41,13 @@ const PickScreens = () => {
       // Deployed project pages likely an array of URLs
       setDeployPages(deployed_project_pages.map(url => ({ label: url, value: url })));
 
+      // FOR DEMO 
+      if (deployed_project_pages[0] === 'https://ellu.webdev.iyaserver.com/flush-finder/home.php' || deployed_project_pages[0] === 'https://ellu.webdev.iyaserver.com/flush-finder/login.php') {
+          setDeployPages([{ label: 'https://ellu.webdev.iyaserver.com/flush-finder/home.php', value: 'https://ellu.webdev.iyaserver.com/flush-finder/home.php' },
+                          { label: 'https://ellu.webdev.iyaserver.com/flush-finder/login.php', value: 'https://ellu.webdev.iyaserver.com/flush-finder/login.php' }
+        ]);
+      }
+
       // Figma pages are keys in the page_frames object
       const figmaPagesOptions = Object.keys(page_frames).map(pageName => ({
         label: pageName,
@@ -107,15 +114,24 @@ const PickScreens = () => {
         });
 
         if (response.status === 200) {
-          console.log("SUCCESS");
-          console.log(response.data);
-          console.log("MESSAGE");
-          console.log(response.data.choices[0].message.content);
-          console.log("IMAGE 2 PATH");
-          console.log(response.data.image2_path);
-          const messageContent = response.data.choices[0].message.content;
+          // console.log("SUCCESS");
+          // console.log(response.data);
+          // console.log("MESSAGE");
+          // console.log(response.data.choices[0].message.content);
+          // console.log("IMAGE 2 PATH");
+          // console.log(response.data.image2_path);
+          // const messageContent = response.data.choices[0].message.content;
 
-          navigate('/results', { state: { pageData: messageContent } });
+          // navigate('/results', { state: { pageData: messageContent } });
+
+          // FOR DEMO
+          await new Promise(resolve => {
+            setTimeout(() => {
+              navigate('/results', { state: { pageData: response.data } });
+              resolve(); // Resolve the promise when navigation completes
+            }, 1000);
+          });
+        
         }
       } catch(error) {
           console.error('Error', error);
@@ -131,8 +147,8 @@ const PickScreens = () => {
 
 
   return (
-    <div className="h-screen">
-      <Paginator filledLines='2' className="mb-[159px] mt-[78px]"/>
+    <div className="h-screen overflow-y-hidden">
+      <Paginator filledLines='2' className="mb-[100px] mt-[60px]"/>
       <div className="flex flex-col justify-center items-center" style={{width: "100vw", height: "75vh"}}>
       <Card className="p-[60px] flex flex-col gap-[40px]">
             <img className="w-[88px] mx-auto" src={logo} alt="pixel logo" />

@@ -1,0 +1,37 @@
+{
+    "image": 2,
+    "errors": [
+        {
+            "errorNum": 1,
+            "errorName": "Header Font Weight",
+            "errorDescription": "The font weight in the 'Find a bathroom' header appears to be bolder in the deployed version.",
+            "component": "Header text in center of the top of the page",
+            "HTML": "<div class=\"title-container\">\n    <h1>Find a bathroom</h1>\n</div>",
+            "CSS": "display: flex;\\nflex-direction: row;\\nalign-items: center;\\njustify-content: flex-start;\\ngap: 50px;\\ncolor: #2463EB;"
+        },
+        {
+            "errorNum": 2,
+            "errorName": "Input Text Inconsistency",
+            "errorDescription": "The placeholder for the first input field is different in the deployed version.",
+            "component": "Text input component in middle of the page",
+            "HTML": "<input placeholder=\"Any\" class=\"text-input\">",
+            "CSS": "display: flex;\\nflex-direction: row;\\njustify-content: flex-start;\\ngap: 30px;\\ncolor: #2463EB;"
+        },
+        {
+            "errorNum": 3,
+            "errorName": "Input Field Border Thickness",
+            "errorDescription": "The border of the input fields appear to be thicker in the deployed version.",
+            "component": "Input fields in the middle of the page",
+            "HTML": "<input placeholder=\"Any\" class=\"dropdown-container\">",
+            "CSS": "display: flex;\\nflex-direction: row;\\njustify-content: flex-start;\\ngap: 30px;\\ncolor: #2463EB;"
+        },
+        {
+            "errorNum": 4,
+            "errorName": "Button Padding Inconsistency",
+            "errorDescription": "The buttons in the top right corner of the page appear to have more padding in the deployed version.",
+            "component": "Buttons in the top right of the page",
+            "HTML": "<div class=\"reg-button\">HOME</div>",
+            "CSS": "display: flex;\\nflex-direction: row;\\nalign-items: center;\\njustify-content: flex-start;\\npadding: 230px;\\ncolor: #FFFFFF;\\nbackground: #2463EB;"
+        }
+    ]
+}
