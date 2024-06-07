@@ -1,47 +1,92 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 import ButtonPurp from '../components/Buttonpurp';
 import logo from '../images/pixel_logo.svg';
 import Card from '../components/Card';
-import Input from '../components/Input';
 import Paginator from '../components/Paginator';
+import InputText from '../components/InputText';
+import Spinner from '../components/Spinner';
 
 const Enterlinks = () => {
-  const [link, setLink] = useState("");
+  const [figmaLink, setFigmaLink] = useState("");
   const [prototypeLink, setPrototypeLink] = useState("");
+  const [figmaLinkErrorMsg, setFigmaLinkErrorMsg] = useState("");
+  const [prototypeLinkErrorMsg, setPrototypeLinkErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  let navigate = useNavigate();
+
+  function isValidLink(link) {
+    // Regular expression to match URLs
+    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    return urlRegex.test(link);
+  }
+
+  const handleSubmit = async () => {
+    // Check if the links are valid
+    const isFigmaLinkValid = isValidLink(figmaLink);
+    const isPrototypeLinkValid = isValidLink(prototypeLink);
+
+    // Update error state accordingly
+    setFigmaLinkErrorMsg(isFigmaLinkValid ? "" : "Please enter a valid Figma file link.");
+    setPrototypeLinkErrorMsg(isPrototypeLinkValid ? "" : "Please enter a valid deployed site link.");
+
+    // make API request if links valid
+    if (isFigmaLinkValid && isPrototypeLinkValid) {
+      setLoading(true);
+      try {
+        const response = await Axios.post('http://localhost:3001/convertlinks', {
+          figmaLink: figmaLink,
+          prototypeLink: prototypeLink
+        }, {
+          withCredentials: true  // include cookies 
+        });
+
+        if (response.status === 200) {
+          console.log(response.data);
+          navigate('/pickscreens', { state: { pageData: response.data } });
+        }
+      } catch(error) {
+          console.error('Error', error);
+          // show error to user
+          setFigmaLinkErrorMsg("Error Processing Request.");
+          setPrototypeLinkErrorMsg("Error Processing Request.");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
 
   return (
-    <>
-      <div className="flex flex-row justify-center items-center gap-[20px] mt-[50px]">
-        <Paginator className="bg-purple"/>
-        <Paginator className="bg-grey-gradient-20"/>
-        <Paginator className="bg-grey-gradient-20"/>
-      </div>
-      <div className='h-screen flex flex-col justify-center items-center'>
-        <Card className="p-[60px]">
-          <div className='flex flex-col'>
-            <div className="flex flex-row justify-center mb-10">
-              <img src={logo} alt="logo" />
-            </div>
-            <div className='flex flex-col gap-10'>
-              <div className='flex flex-col gap-3'>
-                <div className="text-white text-small-body">
-                  Figma Link
-                </div>
-                <Input placeholder='Link' value={link} setValue={setLink} />
-              </div>
-              <div className='flex flex-col gap-3'>
-                <div className="text-white text-small-body">
-                  {/* can make the above into a label component with prop */}
-                  Prototype Link
-                </div>
-                <Input placeholder={'Link'} value={prototypeLink} setValue={setPrototypeLink} />
-              </div>
-              <ButtonPurp text="Next" type="submit" />
-            </div>
-          </div>
+    <div className="h-screen overflow-y-hidden">
+    <Paginator filledLines='1' className="mx-auto mb-[100px] mt-[60px]"/>
+        <Card className="p-[60px] flex flex-col gap-[40px] min-h-[500px]">
+            <img className="w-[88px] mx-auto" src={logo} alt="pixel logo" />
+            {loading ? ( 
+                <Spinner color='var(--purple-main)'/>
+            ) : (
+              <>
+                <InputText 
+                  label="Figma File" 
+                  placeholder='Link to Figma file' 
+                  value={figmaLink} 
+                  setValue={setFigmaLink} 
+                  errorMsg={figmaLinkErrorMsg}
+                />
+                <InputText 
+                  label="Deployed Prototype" 
+                  placeholder='Link to deployed site' 
+                  value={prototypeLink} 
+                  setValue={setPrototypeLink} 
+                  errorMsg={prototypeLinkErrorMsg}
+                />
+                <ButtonPurp text="Next" clickHandle={handleSubmit}/>
+              </>
+            )}
         </Card>
-      </div>
-    </>
+    </div>
   );
 };
 

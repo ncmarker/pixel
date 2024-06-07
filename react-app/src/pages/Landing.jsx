@@ -10,23 +10,16 @@ const Landing = () => {
   const errorMessage = new URLSearchParams(location.search).get('error');
 
   return (
-    <div className='h-screen'>
-      <div className="m-[50px]">
-      <img src={logo} alt="logo"/>
-      </div>
-      <div className="flex flex-col justify-center items-center mt-[100px]">
-        <h1 className="title-text text-center">Making sure your product is</h1>
-        <h1 className="title-text text-center">pixel perfect</h1>
-      </div>
-      <div className="flex flex-col justify-center items-center">
-        <p className="header-text flex flex-row justify-center mt-[40px]" >Pixel streamlines UI compliance to make sure that your vision and your</p>
-        <p className="header-text flex flex-row justify-center mb-[40px]">product are aligned</p>
-      </div>
+    <div className='h-screen overflow-y-hidden text-center'>
+      <img className="p-[50px]" src={logo} alt="logo"/>
+    <div className="flex flex-col items-center justify-center" style={{width: "100vw", height: "75vh"}}>
+      <h1 className="mx-auto max-w-[686px] text-title text-center">Making sure your product is pixel perfect</h1>
+      <p className="text-subtext mx-auto mb-[40px] mt-[40px] max-w-[726px]" >Pixel streamlines UI compliance to make sure that your vision and your product are aligned</p>
       {errorMessage && <p>Error: Authentication failed. Please try again.</p>}
-      <form action={`${process.env.REACT_APP_API_URL}/login`} method="GET" className="flex justify-center align-items">
-        {/* use javascript on click */}
-        <ButtonWhite text="Connect to Figma" type="submit" className="mb-[0px]"/>
+      <form action={`${"http://localhost:3001"}/login`} method="GET" className="flex justify-center align-items">
+        <ButtonWhite text="Connect to Figma" type="submit"/>
       </form>
+    </div>
     </div>
   )
 }

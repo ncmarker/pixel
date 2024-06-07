@@ -1,14 +1,20 @@
+:root {    
+    /* font styles */
+    --font-color: white;
+    --reg-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
+    --title-font: "Louis George Cafe";
+    --title-font-size: 52px;
+    --subtext-font-size: 24px;
+    --text-input-color: rgba(255, 255, 255, 0.60);
+    --navy-font: #0c0a2d;
+}
+
+@font-face {
+    font-family: "Louis George Cafe";
+    src: url(Louis-George-Cafe.ttf);
+  }
 
 .text {
-    &-main-logo {
-        font-family: Helvetica, sans-serif;
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 30px;
-    }
-    /* repeat this for all text styles */
-
     &-small-body {
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 16px;
@@ -16,28 +22,60 @@
         font-weight: 400;
         line-height: normal;
     }
+
+    &-drop-down {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #6E6E78;
+    }
+
+    &-20px-font-size {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    &-title {
+        font-family: var(--title-font);
+        color: var(--font-color);
+        font-size: var(--title-font-size);
+        font-style: normal;
+        // text-align: center;
+        font-weight: 700;
+        line-height: normal;
+    }
+    
+    &-subtext {
+        font-family: var(--reg-font);
+        color: var(--font-color);
+        font-size: var(--subtext-font-size);
+        font-style: normal;
+        // text-align: center;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    &-28px-font-size {
+        font-family: var(--reg-font);
+        font-size: 28px;
+        color: var(--font-color);
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    &-error-num {
+        font-family: var(--reg-font);
+        font-size: 16px;
+        color: var(--navy-font);
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
 }
 
-.title-text {
-    font-family: var(--title-font);
-    color: var(--font-color);
-    font-size: var(--title-font-size);
-    font-style: normal;
-    // text-align: center;
-    font-weight: 700;
-}
-
-.header-text {
-    font-family: var(--reg-font);
-    color: var(--font-color);
-    font-size: var(--heading-font-size);
-    text-align: center;
-    font-style: normal;
-    font-weight: 400;
-}
-
-.button-container {
-    display: flex;
-    align-items: row;
-    justify-content: center;
-}

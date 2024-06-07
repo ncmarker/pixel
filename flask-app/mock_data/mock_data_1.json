@@ -1,0 +1,53 @@
+{
+  "image": 1,
+  "errors": [
+    {
+      "errorNum": 1,
+      "errorName": "Search Button Text Inconsistency",
+      "errorDescription": "The search button text reads 'SEARCH NOW!' in the mockup and 'FIND ONE NOW!' in the deployed version.",
+      "component": "Search button on the top section of the page",
+      "HTML": "<div class=\"building\">FIND ONE NOW!</div>",
+      "CSS": "display: flex;\\nflex-direction: row;\\nalign-items: center;\\njustify-content: flex-start;\\ngap: 50px;\\ncolor: #2463EB;"
+    },
+    {
+      "errorNum": 2,
+      "errorName": "Heading Color Difference",
+      "errorDescription": "The background color of the blue header is lighter in the deployed version.",
+      "component": "'FLUSH FINDER' header at the top left of the page.",
+      "HTML": "<div class=\"flush-finder-wrapper\">\\n    <b class=\"flush-finder\">FLUSH FINDER</b>\\n</div>",
+      "CSS": "background-color: var(--blue);\\nwidth: 814px;\\ndisplay: inline-block;\\nalign-items: center;\\njustify-content: center;\\npadding: var(--padding-sm);\\nbox-sizing: border-box;\\nz-index: 1;\\nmargin-top: -90px;"
+    },
+    {
+      "errorNum": 3,
+      "errorName": "Card Border Radius",
+      "errorDescription": "The boxes under 'The people have spoken' do not have a border radius in the deployed version.",
+      "component": "Boxes under 'The people have spoken'",
+      "HTML": "<div class=\"bathroomcard\" href=\"FFReview.php?bathroom_id=28\"><div class=\"leavey-library\">Ronald Tutor Campus Center</div><div class=\"l1-5\">L1 • 10 stalls</div><div class=\"l1-5\">5.00 stars from 1 review <br></div></div>",
+      "CSS": "background-color: var(--color-white);\\nborder: 2px solid var(--color-lightgray);\\nbox-sizing: border-box;\\nwidth: 329px;\\npadding: var(--padding-5xl);\\ngap: var(--gap-5xs);"
+    },
+    {
+      "errorNum": 4,
+      "errorName": "Arrow Spacing",
+      "errorDescription": "The spacing between 'Learn More' and the arrow is less in the deployed version.",
+      "component": "Arrow under 'Learn More' in the center of the page",
+      "HTML": "<img class=\"downarrow\" alt=\"\" src=\"assets/dropdownarrow.png\">",
+      "CSS": "position: relative;\\nwidth: 15px;"
+    },
+    {
+      "errorNum": 5,
+      "errorName": "Dropdown Options Missing",
+      "errorDescription": "The 'Building', 'Gender', 'Occupancy' dropdown is missing in the deployed version.",
+      "component": "Dropdown with 'Building', 'Gender', 'Occupancy' at the top third of the page on the left",
+      "HTML": "",
+      "CSS": ""
+    },
+    {
+      "errorNum": 6,
+      "errorName": "'Read More' Button Color",
+      "errorDescription": "The 'Read More' button is blue in the deployed version and white in the Figma mockup.",
+      "component": "'Read More' button at the bottom right of the page.",
+      "HTML": "<a class=\"button\" href=\"about.php\">READ MORE</a>",
+      "CSS": "background-color: var(--blue);\\nborder: 2px solid var(--blue);\\nalign-items: center;\\njustify-content: center;\\npadding: var(--padding-3xs) var(--padding-sm);\\ncolor: var(--slate50);\\nfont-family: \"VCD Mono\";\\nfont-size: var(--wp--preset--font-size--small);\\ntext-transform: uppercase;\\ntext-decoration: none;\\ndisplay: inline-block;"
+    }
+  ]
+}

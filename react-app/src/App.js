@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import EnterLinks from './pages/Enterlinks';
-import ComparePage from './pages/compare';
-import SubmitPage from './pages/Submit';
-
+import PickScreens from './pages/PickScreens';
+import ResultsPage from './pages/Results';
 
 
 function App() {
@@ -17,10 +16,11 @@ function App() {
         {/* Route to EnterLinks Page */}
         <Route path="/enterlinks" element={<EnterLinks/>} />
 
-        <Route path="/enterlinks/submit" element={<SubmitPage/>} />
+        {/* Route to Dropdown Page ----- EDIT */}
+        <Route path="/pickscreens" element={<PickScreens/>} />
 
         {/* Route to Comparison Page */}
-        <Route path="/compare" element={<ComparePage/>} />
+        <Route path="/results" element={<ResultsPage/>} />
       </Routes>
       {/* Redirect all other paths to Home */}
       {/* <Navigate to="/" /> */}
