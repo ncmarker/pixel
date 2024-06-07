@@ -3,6 +3,8 @@ import logo from '../images/pixel_logo.svg'
 import ButtonWhite from '../components/Buttonwhite'
 import { useLocation } from 'react-router-dom';
 
+require('dotenv').config();  // Loads variables from .env into process.env
+
 const Landing = () => {
   const location = useLocation();
   const errorMessage = new URLSearchParams(location.search).get('error');

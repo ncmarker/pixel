@@ -14,7 +14,7 @@ import scrape_url as su
 load_dotenv()
 CLIENT_ID = os.getenv("FIGMA_CLIENT_ID")
 CLIENT_SECRET = os.getenv("FIGMA_CLIENT_SECRET")
-REDIRECT_URI = 'http://localhost:3000/oauth/callback'  # Update if using a different redirect URI
+REDIRECT_URI = 'http://localhost:3001/oauth/callback'  # Update if using a different redirect URI
 SCOPE = 'files:read, file_variables:read,file_dev_resources:read,file_variables:write'
 AUTHORIZE_URL = 'https://www.figma.com/oauth'
 TOKEN_URL = 'https://www.figma.com/api/oauth/token'
